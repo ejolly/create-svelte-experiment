@@ -22,6 +22,7 @@ was just created -->
   async function logout() {
     try {
       await signOut(auth);
+      localStorage.removeItem("svelte-experiment-userId");
       console.log("Successfully logged out of firebase");
     } catch (error) {
       console.error(error);
