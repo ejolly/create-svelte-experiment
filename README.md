@@ -1,6 +1,6 @@
 # Create Svelte Experiment
 
-*Last updated: 2022-01-24*
+*Last updated: 2022-02-27*
 
 This is a svelte template designed for bootstrapping small applications used in social and affective science. It's been setup to use the latest development tooling to make coding the app a fast and fun experience. This includes:
 - [SvelteJS](https://svelte.dev/) as an intuitive javascript framework for layout and logic
@@ -79,7 +79,7 @@ The scaffold also has a few special variables made available by [Vite](https://v
 
 ### 2b. Data and state management
 
-All data for each user is stored within a Firebase collection called `'participants'` with a separate document per user. Each user document is both used to store data generated during the experiment itself (i.e. responses to trials or questions) as well as additional app *state* information for a specific user. State information may include things like *where* in the experiment the user currently is (e.g. consent, debrief, etc) or what trial of an experiment they're currently on. 
+All data for each user is stored within a Firebase collection called `'participants'` (configurable in `utils.js`) with a separate document per user. Each user document is both used to store data generated during the experiment itself (i.e. responses to trials or questions) as well as additional app *state* information for a specific user. State information may include things like *where* in the experiment the user currently is (e.g. consent, debrief, etc) or what trial of an experiment they're currently on. 
 
 The benefit of storing this *state* information alongside a user's responses is that the app can make use of Firestore's *real-time data subscription*. The general pattern employed throughout the app is subscribing to the most up-to-date version of a user's document and saving it to a Svelte store called `userStore` from within `App.svelte`. This initial subscription is setup when a user first navigates to the app. Elsewhere in the app, new data is then written to Firebase using the `updateUser` function in `utils.js`. This ensures that pages and components are guaranteed to *automatically* have the "freshest" user data as long as they read from the Svelte store (i.e. `$userStore.someField`) rather than querying the database directly.
 
