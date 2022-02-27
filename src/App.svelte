@@ -10,6 +10,8 @@
   } from "./utils.js";
 
   import { db, loggedIn, serverTime } from "./db";
+  import { initRouter, go } from "./router.js";
+  import { onMount } from "svelte";
 
   // app pages and components
   import Login from "./pages/Login.svelte";
@@ -46,10 +48,25 @@
   loggedIn.subscribe(async (isLoggedIn) => {
     if (isLoggedIn) {
       await setupUserSubscription(globalVars.userCollection, initUser);
+      // initRouter();
     } else if ($dataUnsubscribe !== null) {
       $dataUnsubscribe();
       console.log("Data subscription off!");
     }
+  });
+
+  $: {
+    console.log(window.location.href.split("/").slice(-1)[0]);
+  }
+  onMount(() => {
+    window.onpopstate = (ev) => {
+      // Listen to popstate events when using history.opush state and update the current
+      // state of the svelte store
+      console.log("popstate");
+      // const storeData = get(userStore);
+      // storeData.currentState = ev.state.page;
+      // userStore.set(storeData);
+    };
   });
 </script>
 

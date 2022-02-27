@@ -1,6 +1,7 @@
 <script>
   import { createEventDispatcher } from "svelte";
   import { updateUser } from "../utils.js";
+  import { go } from "../router";
 
   const dispatch = createEventDispatcher();
 
@@ -17,4 +18,8 @@
   >
     Go to experiment
   </button>
+  <button
+    class="px-4 py-4 text-white bg-red-400 rounded-full focus:outline:none hover:cursor-pointer"
+    on:click={() => go("debrief")}>Try router</button
+  >
 </div>
